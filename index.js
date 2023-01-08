@@ -1,11 +1,12 @@
 moves = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
-  let computerSelection = Math.random();
+  let computerSelection = '';
+  let rnd = Math.floor(Math.random() * 3);
 
-  if (computerSelection < 0.34) {
+  if (rnd === 0) {
     computerSelection = "rock";
-  } else if (computerSelection <= 0.67) {
+  } else if (rnd === 1) {
     computerSelection = "paper";
   } else {
     computerSelection = "scissors";
@@ -18,7 +19,6 @@ function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
   
-  // Check for a tie
   if (playerSelection === computerSelection) {
     return "It's a tie!";
   }
@@ -51,14 +51,30 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-async function playGame() {
+function playGame() {
+  let playerPoints = 0;
+  let computerPoints = 0;
+
   for (let i = 0; i < 5; i++) {
     let playerSelection = prompt("Enter your move (rock/paper/scissors):");
     let computerSelection = getComputerChoice();
-    
-    document.getElementById('result').innerHTML += playRound(playerSelection, computerSelection) + '<br />';
+    let roundResult =  playRound(playerSelection, computerSelection);
+    if (roundResult.includes('win')) {
+      playerPoints ++;
+    } else if (roundResult.includes('lose')){
+      computerPoints ++;
+    }
+
+    document.getElementById('result').innerHTML += roundResult + ' The score is: ' + playerPoints + ' to ' + computerPoints  + '<br />';
+  }
+
+  if (playerPoints > computerPoints) {
+    document.getElementById('result').innerHTML += 'You win the game! ' + playerPoints + ' to ' + computerPoints;
+  } else if (playerPoints < computerPoints) {
+    document.getElementById('result').innerHTML += 'You lose the game! ' + playerPoints + ' to ' + computerPoints;
+  } else {
+    document.getElementById('result').innerHTML += "It's a tie match!"
   }
 }
 
-// Start the game
-  playGame()
+playGame()
