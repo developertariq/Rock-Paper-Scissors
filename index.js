@@ -1,4 +1,12 @@
 moves = ["rock", "paper", "scissors"];
+let roundResult = 0;
+let playerPoints = 0;
+let computerPoints = 0;
+const rockBtn = document.getElementById('rock-btn');
+const paperBtn = document.getElementById('paper-btn');
+const scissorsBtn = document.getElementById('scissors-btn');
+const playerSelect = document.getElementById('playerSelect');
+const computerSelect = document.getElementById('computerSelect');
 
 function getComputerChoice() {
   let computerSelection = '';
@@ -15,10 +23,52 @@ function getComputerChoice() {
   return computerSelection;
 } 
 
-function playRound(playerSelection, computerSelection) {
+function displayOption (playerSelection, computerSelection) {
+
+  const playerOption = document.createElement('img');
+  const computerOption = document.createElement('img');
+  playerSelect.innerHTML = '';
+  computerSelect.innerHTML = '';
+  switch (playerSelection) {
+  case 'rock':
+    playerOption.src= './images/rock.png';
+    break;
+  case 'paper':
+    playerOption.src= './images/paper.png';
+    break;
+  case 'scissors':
+    playerOption.src= './images/scissors.png';
+    break;
+  default:
+    playerOption.src= '';
+    break;
+  }
+
+  switch (computerSelection) {
+    case 'rock':
+      computerOption.src= './images/rock.png';
+      break;
+    case 'paper':
+      computerOption.src= './images/paper.png';
+      break;
+    case 'scissors':
+      computerOption.src= './images/scissors.png';
+      break;
+    default:
+      computerOption.src= '';
+      break;
+    }
+  playerSelect.appendChild(playerOption);
+  computerSelect.appendChild(computerOption);
+}
+
+function playRound(playerSelection) {
   playerSelection = playerSelection.toLowerCase();
+  let computerSelection = getComputerChoice();
   computerSelection = computerSelection.toLowerCase();
-  
+
+  displayOption(playerSelection, computerSelection);
+
   if (playerSelection === computerSelection) {
     return "It's a tie!";
   }
@@ -51,30 +101,63 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function playGame() {
-  let playerPoints = 0;
-  let computerPoints = 0;
+rockBtn.addEventListener('click', () => {
+  roundResult = playRound('rock');
+  playGame()
+});
 
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Enter your move (rock/paper/scissors):");
-    let computerSelection = getComputerChoice();
-    let roundResult =  playRound(playerSelection, computerSelection);
-    if (roundResult.includes('win')) {
-      playerPoints ++;
-    } else if (roundResult.includes('lose')){
-      computerPoints ++;
-    }
+paperBtn.addEventListener('click', () => {
+  roundResult = playRound('paper');
+  playGame()
+});
 
-    document.getElementById('result').innerHTML += roundResult + ' The score is: ' + playerPoints + ' to ' + computerPoints  + '<br />';
-  }
+scissorsBtn.addEventListener('click', () => {
+  roundResult = playRound('scissors');
+  playGame()
+});
 
-  if (playerPoints > computerPoints) {
-    document.getElementById('result').innerHTML += 'You win the game! ' + playerPoints + ' to ' + computerPoints;
-  } else if (playerPoints < computerPoints) {
-    document.getElementById('result').innerHTML += 'You lose the game! ' + playerPoints + ' to ' + computerPoints;
-  } else {
-    document.getElementById('result').innerHTML += "It's a tie match!"
-  }
+const reset = document.getElementById('resetBtn');
+function disableButtons() {
+  rockBtn.disabled = true;
+  paperBtn.disabled=true;
+  scissorsBtn.disabled = true;
+  reset.classList.toggle('hide');
 }
 
-playGame()
+function enableButtons(){
+  roundResult = 0;
+  playerPoints = 0;
+  computerPoints = 0;
+  rockBtn.disabled = false;
+  paperBtn.disabled = false;
+  scissorsBtn.disabled = false;
+  document.getElementById('roundResult').innerHTML = ''; 
+  document.getElementById('score').innerHTML = ''; 
+  playerSelect.innerHTML = '';
+  computerSelect.innerHTML = '';
+  document.getElementById('result').innerHTML = '';
+}
+
+
+reset.addEventListener('click', () => { 
+  enableButtons();
+  reset.classList.add('hide')
+});
+
+function playGame() {  
+  if (roundResult.includes('win')) {
+    playerPoints ++;
+  } else if (roundResult.includes('lose')){
+    computerPoints ++;
+  }
+  document.getElementById('roundResult').innerHTML = roundResult; 
+  document.getElementById('score').innerHTML = `<span>${playerPoints}</span><span>${computerPoints}</span>`; 
+
+  if (playerPoints === 5) {
+    document.getElementById('result').innerHTML = "Congratulations, you win the game!";
+    disableButtons();
+  } else if (computerPoints === 5) {
+    document.getElementById('result').innerHTML = "Sorry, you lose the game!";
+    disableButtons();
+  }
+}

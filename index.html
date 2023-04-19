@@ -8,7 +8,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <p id="result"></p>
+  <div class="main">
+    <h1>Let's play a game!</h1>
+    <button id="resetBtn" class="reset hide">Reset</button>
+    <div class="optoins solid-border">
+      <button id="rock-btn"><img src="./images/rock.png"> Rock</button>
+      <button id="paper-btn"><img src="./images/paper.png"> Paper</button>
+      <button id="scissors-btn"><img src="./images/scissors.png"> Scissors</button>
+    </div>
+    <div class="score solid-border">
+      <div class = "dis-flex">
+        <p>You</p>
+        <p>Computer</p>
+      </div>
+    </div>
+    <div class="dis-flex solid-border game">
+      <div id="playerSelect" style="border: none;">
+      </div>
+      <p id="roundResult">          
+      </p>
+      <div id="computerSelect" style="border: none;">
+      </div>
+    </div>
+    <div id="score" class="dis-flex score solid-border">
+    </div>
+    <div id="result" class="solid-border">
+    </div>
+  </div>
   <script src="index.js"></script>
 </body>
 </html>

@@ -1,6 +1,99 @@
 body {
-  margin: 0;
+  width: 100%;
+  margin: 0 auto;
   background: black;
   color: white;
   font-family: roboto, arial, sans-serif;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.optoins {
+  display: flex;
+  background-color: #fff;
+  width: 50%;
+  padding: 8px 16px;
+  justify-content: space-between;
+}
+
+.optoins button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.game {
+  width: calc(50% + 16px);
+  height: 100px;
+  padding: 0 8px;
+}
+
+.competitor {
+  display: flex;
+  gap: 20px;
+}
+
+#roundResult  {
+  height: 100%;
+  padding: 16px;
+  text-align: center;
+  margin: auto auto
+}
+
+.score {
+  width: 50%;
+  padding: 16px;
+  text-align: center;
+  height: 25px;
+}
+
+.dis-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px
+}
+
+
+#result {
+  width: 50%;
+  padding: 16px;
+  text-align: center;
+  height: 25px;
+}
+
+.solid-border {
+  border: 1px solid #fff;
+}
+
+button {
+  background: none;
+  border: none;
+}
+img {
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+}
+
+.reset {
+  display: block;
+  padding: 4px;
+  width: 55px;
+  background-color: #fff;
+  margin-top: -32.5px;
+  margin-bottom: 10px;
+  margin-left: calc(50% - 55px + 32px);
+}
+
+.hide {
+  display: none;
 }
